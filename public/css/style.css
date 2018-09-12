@@ -1,0 +1,83 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+    display:block;
+}
+
+ul {
+  list-style: none;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+img {
+	width: 100%;
+}
+
+
+/* 
+
+Main
+
+ */
+
+html {
+	font-size: 18px;
+}
+
+body {
+    font-family: "source sans pro",sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    color: #fff;
+    line-height: 28px;
+    background: #181a1d;
+    letter-spacing: -0.3px;
+}
+
+.top-bar {
+	height: 50px;
+}
+
+.main {
+
+}
+
+.wrap {
+	max-width: 1320px;
+    margin: 0 auto;
+}
+
+
+
+/* 
+
+Modules
+
+ */
+
+.module-1 { display: flex; }
+  .module-11 { flex: 0 1 66.666%; max-width: 66.666%; }
+  	.module-11 .mod-thumb {	 }
+  .module-12 { flex: 0 1 33.333%; max-width: 33.333%; }
+  	.module-12 > div { display: flex; }
+  		.module-12 .mod-thumb { flex: 0 1 30%; max-width: 30%; } 
+  		.module-12 .mod-info { flex: 0 1 70%; max-width: 70%; }
+
+.module-2 { display: flex; }
+  .module-21 { flex: 0 1 50%; max-width: 50%; flex-wrap: wrap; display: flex; }
+    .module-21 > div { flex: 0 1 50%; max-width: 50%; display: flex; }
+    .module-21 .mod-thumb { flex: 0 1 47%; max-width: 47%; } 
+    .module-21 .mod-info { flex: 0 1 53%; max-width: 53%; }
+  .module-22 { flex: 0 1 50%; max-width: 50%; }
+
