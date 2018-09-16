@@ -2,14 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Entities\Character;
-use App\Entities\Comment;
-use App\Entities\Genre;
-use App\Entities\Movie;
-use App\Entities\Param;
-use App\Entities\User;
+use App\Models\Character;
+use App\Models\Comment;
+use App\Models\Genre;
+use App\Models\Movie;
+use App\Models\Param;
+use App\Models\User;
 
-Use App\Libraries\Images;
+Use App\Http\Controllers\IcScraper\Images;
 use Carbon\Carbon;
 
 class ScraperRepository {
