@@ -8,6 +8,10 @@ Comandos `Ctrl + Shift + P o F1`
 
 Mover linea arriba / abajo `Alt + up/down`
 
+Seleccionar siguiente ocurrencia `Ctrl + D`
+
+Duplicar linea `Shift + Alt + Down`
+
 
 ## Markdown
 

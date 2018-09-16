@@ -16,6 +16,7 @@ Route::group([
     'prefix' => 'icsraper'
 ], function() {
     Route::get('/', 'Scraper@show')->name('icscraper.show');
+    Route::get('/filmaffinitybyletter', 'MovieScraper@FilmAffinityByLetter')->name('icscraper.filmaffinitybyletter');
 });
 
 /* 

@@ -29,13 +29,14 @@
   /* Main */
 
   body {
-    font-family: "source sans pro",sans-serif;
+    font-family: 'Roboto Mono', monospace;
     font-style: normal;
     font-weight: 400;
     color: #2b2c2d;
-    line-height: 28px;
+    line-height: 20px;
     background: #e8ecef;
     letter-spacing: -0.3px;
+    font-size: 11px;
 }
 
 .wrap {
@@ -57,4 +58,8 @@
 .content {
     background: #fff;
     padding: 20px;
+}
+
+th {
+    text-align: left;
 }
