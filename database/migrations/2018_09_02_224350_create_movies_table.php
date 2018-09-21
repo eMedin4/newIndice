@@ -24,9 +24,9 @@ class CreateMoviesTable extends Migration
             $table->smallInteger('duration');
             $table->string('country');
             $table->text('review');
-            $table->boolean('check_poster')->default(0);
-            $table->boolean('check_background')->default(0);
-            $table->string('imdb_id')->nullable();
+            $table->boolean('check_poster')->nullable();
+            $table->boolean('check_background')->nullable();
+            $table->string('im_id')->nullable();
             $table->string('rt_url')->nullable();
             $table->tinyInteger('avg');
             $table->decimal('fa_rat', 3, 1)->nullable();

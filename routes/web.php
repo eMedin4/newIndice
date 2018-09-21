@@ -13,7 +13,7 @@ Route::get('/pelicula/{slug}', ['as' => 'movie', 'uses' => 'MovieController@show
 Route::group([
     'middleware' => ['auth', 'admin'],
     'namespace' => 'IcScraper',
-    'prefix' => 'icsraper'
+    'prefix' => 'icscraper'
 ], function() {
     Route::get('/', 'Scraper@show')->name('icscraper.show');
     Route::get('/filmaffinitybyletter', 'MovieScraper@FilmAffinityByLetter')->name('icscraper.filmaffinitybyletter');

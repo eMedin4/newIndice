@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 use Goutte\Client;
 use Carbon\Carbon;
 
-use App\Repositories\scraperRepository;
+use App\Http\Controllers\IcScraper\ScraperRepository;
 
 class MovieScraper extends Controller
 {
 
-    private $scrapRepository;
+    private $scraperRepository;
 
     public function __Construct(ScraperRepository $scraperRepository)
 	{
@@ -34,8 +34,9 @@ class MovieScraper extends Controller
         
         ob_start(); //iniciamos el output buffering https://stackoverflow.com/questions/5415665/show-results-while-script-is-still-executing
 
-        for ($i=1; $i<=5; $i++) {
+        for ($i=1; $i<=6; $i++) {
 
+			
 			echo 'scrapeamos pagina: ' . $crawler->getUri() . '<br>';
 
 			//SCRAPEAMOS PÁGINA
@@ -45,7 +46,7 @@ class MovieScraper extends Controller
 				$card = $this->cardScrap($element);
 
 				//SI YA EXISTE SALIMOS
-				if (!$this->scrapRepository->checkUpdated($card['id'], $days=60)) return;
+				if (!$this->scraperRepository->checkUpdated($card['id'], $days=60)) return;
 
 				//SI TIENE 10 O MENOS VOTOS SALIMOS
 				if ($card['countScore'] < 10) return;
@@ -91,11 +92,11 @@ class MovieScraper extends Controller
 
     public function cardScrap($element)
 	{
-		$result['href']  = $element->filter('.movie-card h3 a'); 
-		$result['id'] = $this->format->faId($result['href']->attr('href'));
-		$result['title'] = $element->filter('.movie-card h3 a')->text(); 
-		$result['score'] = $this->format->score($element->filter('.avg-rating')->text());
-		$result['countScore'] = $this->format->integer($this->format->getElementIfExist($element, '.rat-count', 0));
+		$result['href']  = $element->filter('.movie-card .mc-title a'); 
+		$result['id'] = $this->faId($result['href']->attr('href'));
+		$result['title'] = $element->filter('.movie-card .mc-title a')->text(); 
+		$result['score'] = $this->score($element->filter('.avgrat-box')->text());
+		$result['countScore'] = $this->integer($this->getElementIfExist($element, '.ratcount-box', 0));
 		return $result;
     }
     
@@ -122,17 +123,17 @@ class MovieScraper extends Controller
 
 		/* fa_id */
 		if ($crawler->filter('.ntabs a')->count())
-			$data['fa_id'] = $this->format->faId($crawler->filter('.ntabs a')->eq(0)->attr('href'));
+			$data['fa_id'] = $this->faId($crawler->filter('.ntabs a')->eq(0)->attr('href'));
 		else return ['error' => 'No se encuentra ID de filmaffinity en la clase .ntabs a'];
 		
 		/* title */
 		$data['title'] = $crawler->filter('#main-title span')->text();
-		$data['title'] = $this->format->removeString($data['title'], '(TV)');
+		$data['title'] = $this->removeString($data['title'], '(TV)');
 
 		/* fa_rat y fa_count */
-		if ($this->format->getElementIfExist($crawler, '#movie-rat-avg', NULL) && $this->format->getElementIfExist($crawler, '#movie-count-rat span', NULL)) {
-			$data['fa_rat'] = $this->format->float($crawler->filter('#movie-rat-avg')->text());
-			$data['fa_count'] = $this->format->integer($crawler->filter('#movie-count-rat span')->text());
+		if ($this->getElementIfExist($crawler, '#movie-rat-avg', NULL) && $this->getElementIfExist($crawler, '#movie-count-rat span', NULL)) {
+			$data['fa_rat'] = $this->float($crawler->filter('#movie-rat-avg')->text());
+			$data['fa_count'] = $this->integer($crawler->filter('#movie-count-rat span')->text());
 		} else {
 			$data['fa_rat'] = $data['fa_count'] = NULL;
 		}
@@ -147,11 +148,11 @@ class MovieScraper extends Controller
         }
 
         /* DATOS DE LA TABLA DE FA */
-		$data['year'] = $this->format->getValueIfExist($table2, 'Año');
-		$data['original_title'] = $this->format->cleanData($this->format->getValueIfExist($table2, 'Título original'));
-		$data['country'] = $this->format->cleanData($this->format->getValueIfExist($table2, 'País'));
-		$data['duration'] = $this->format->integer($this->format->getValueIfExist($table2, 'Duración'));
-		$data['fa_review'] = $this->format->removeString($this->format->getValueIfExist($table2, 'Sinopsis'), '(FILMAFFINITY)');
+		$data['year'] = $this->getValueIfExist($table2, 'Año');
+		$data['original_title'] = $this->cleanData($this->getValueIfExist($table2, 'Título original'));
+		$data['country'] = $this->cleanData($this->getValueIfExist($table2, 'País'));
+		$data['duration'] = $this->integer($this->getValueIfExist($table2, 'Duración'));
+		$data['fa_review'] = $this->removeString($this->getValueIfExist($table2, 'Sinopsis'), '(FILMAFFINITY)');
 
 		if ($data['duration'] < 30) return ['reject' => $data['fa_id'] . ': Dura menos de 30 minutos!'];
 
@@ -162,7 +163,7 @@ class MovieScraper extends Controller
 	    */
 
 	    /* tm_id */
-	    $data['tm_id'] = $this->format->searchTmdbId($data['fa_id'], $data['title'], $data['original_title'], $data['year']);
+	    $data['tm_id'] = $this->searchTmdbId($data['fa_id'], $data['title'], $data['original_title'], $data['year']);
 	    if (is_null($data['tm_id'])) {
 	    	if ($data['fa_count'] > 300) {
 	    		return ['error' => $data['fa_id'] . ' : No se encuentra en Themoviedb'];
@@ -177,10 +178,10 @@ class MovieScraper extends Controller
 
 		$data['credits'] = $tmdb['credits'];
 		$data['genres'] = $tmdb['genres'];	
-		$data['im_id'] = $this->format->getValueIfExist($tmdb, 'imdb_id');
-		$data['tm_review'] = $this->format->getValueIfExist($tmdb, 'overview');
-		$data['poster'] = $this->format->getValueIfExist($tmdb, 'poster_path');
-		$data['background'] = $this->format->getValueIfExist($tmdb, 'backdrop_path');
+		$data['im_id'] = $this->getValueIfExist($tmdb, 'imdb_id');
+		$data['tm_review'] = $this->getValueIfExist($tmdb, 'overview');
+		$data['poster'] = $this->getValueIfExist($tmdb, 'poster_path');
+		$data['background'] = $this->getValueIfExist($tmdb, 'backdrop_path');
 
 		/*
 	    |--------------------------------------------------------------------------
@@ -195,7 +196,7 @@ class MovieScraper extends Controller
 		$curl = curl_init();
 
 		curl_setopt_array($curl, [
-		  CURLOPT_URL => 'http://www.omdbapi.com/?i=' . urlencode($data['imdb_id']) . '&plot=full&apikey=' . env('TMDB_API_KEY'),
+		  CURLOPT_URL => 'http://www.omdbapi.com/?i=' . urlencode($data['im_id']) . '&plot=full&apikey=' . env('OMDB_API_KEY'),
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_ENCODING => "",
 		  CURLOPT_MAXREDIRS => 10,
@@ -212,7 +213,7 @@ class MovieScraper extends Controller
 			$response = curl_exec($curl);
 			$error = curl_error($curl);
 			if ($error) {
-				return ['error' => $data['Fa Id'] . ' : Error al scrapear de omdb'];
+				return ['error' => $data['fa_id'] . ' : Error al scrapear de omdb'];
 			}
 		}
 
@@ -220,17 +221,17 @@ class MovieScraper extends Controller
 		$imdb = json_decode($response, true);
 
         /* SI LA RESPUESTA DEL OMDB API DA FALSE TAMBIEN TERMINAMOS */
-        if ($imdb['Response'] == false) return $data;
+        if ($imdb['Response'] == "False") return $data;
 
         if (isset($imdb['imdbRating']) && $imdb['imdbRating'] != 'N/A')
-        	$data['im_rat'] = $this->format->float($imdb['imdbRating']);
+        	$data['im_rat'] = $this->float($imdb['imdbRating']);
 
         if (isset($imdb['imdbVotes']) AND $imdb['imdbVotes'] != 'N/A')
-        	$data['im_count'] = $this->format->integer($imdb['imdbVotes']);
+        	$data['im_count'] = $this->integer($imdb['imdbVotes']);
 
         foreach ($imdb['Ratings'] as $ratings) {
         	if ($ratings['Source'] == 'Rotten Tomatoes') {
-        		$data['rt_rat'] = $this->format->integer($ratings['Value']);
+        		$data['rt_rat'] = $this->integer($ratings['Value']);
         	}
         }
 
@@ -297,7 +298,22 @@ class MovieScraper extends Controller
 	public function float($value)
 	{
 		return (float) str_replace(',', '.', $value);
-    }
+	}
+	
+	public function score($value) {
+    	if ($value == '--') {
+    		return null;
+    	}
+    	return $this->float($value);
+	}
+	
+	//LIMPIAMOS EL STRING DE ESPACIOS, SALTOS DE LINEA,...
+	public function cleanData($value)
+	{
+		$value = preg_replace('/\xA0/u', ' ', $value); //Elimina %C2%A0 del principio y resto de espacios
+		$value = trim(str_replace(array("\r", "\n"), '', $value)); //elimina saltos de linea al principio y final
+		return $value;
+	}	
     
 
 

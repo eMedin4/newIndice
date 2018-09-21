@@ -36,12 +36,15 @@ html {
 }
 
 body {
-    font-family: "source sans pro",sans-serif;
+
+
+  font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
-    color: #fff;
-    line-height: 28px;
-    background: #181a1d;
+    color: #000;
+    font-size: 16px;
+    line-height: 22px;
+    background: #fff;
     letter-spacing: -0.3px;
 }
 
@@ -60,24 +63,84 @@ body {
 
 
 
+
+
 /* 
 
 Modules
 
  */
 
-.module-1 { display: flex; }
-  .module-11 { flex: 0 1 66.666%; max-width: 66.666%; }
-  	.module-11 .mod-thumb {	 }
-  .module-12 { flex: 0 1 33.333%; max-width: 33.333%; }
-  	.module-12 > div { display: flex; }
-  		.module-12 .mod-thumb { flex: 0 1 30%; max-width: 30%; } 
-  		.module-12 .mod-info { flex: 0 1 70%; max-width: 70%; }
+.main-layout {
+  display: flex;
+}
 
-.module-2 { display: flex; }
-  .module-21 { flex: 0 1 50%; max-width: 50%; flex-wrap: wrap; display: flex; }
-    .module-21 > div { flex: 0 1 50%; max-width: 50%; display: flex; }
-    .module-21 .mod-thumb { flex: 0 1 47%; max-width: 47%; } 
-    .module-21 .mod-info { flex: 0 1 53%; max-width: 53%; }
-  .module-22 { flex: 0 1 50%; max-width: 50%; }
 
+.col-1,
+.col-2,
+.col-3 {
+  padding: 10px;
+}
+
+.col-1 {
+  flex-basis: 30%;
+}
+
+.col-2 {
+  flex-basis: 50%;
+}
+
+.col-3 {
+  flex-basis: 20%;
+}
+
+.feature {
+  padding-bottom: 20px;
+}
+
+.item {
+  display: flex;
+  padding-bottom: 10px;
+}
+
+.top {
+  padding-bottom: 15px;
+}
+
+.item .thumb {
+  flex-basis: 40%;
+}
+
+.item .info {
+  flex-basis: 60%;
+  padding-left: 10px;
+}
+
+.box-test {
+  width: 200px;
+  height: 200px;
+  background-color: darkgray;
+}
+
+
+  /* 
+
+Others
+
+ */
+
+
+
+ .h2 {
+    font-size: 50px;
+    font-weight: 900;
+    line-height: 60px;
+    letter-spacing: -.5px;
+ }
+
+ .h3 {
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 40px;
+    letter-spacing: -.5px;
+ }
