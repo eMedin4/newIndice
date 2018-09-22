@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 Route::get('/', 'MovieController@tv')->name('tv');
 Route::get('/netflix', ['as' => 'netflix', 'uses' => 'MovieController@netflix']);
 Route::get('/pelicula/{slug}', ['as' => 'movie', 'uses' => 'MovieController@show']);
