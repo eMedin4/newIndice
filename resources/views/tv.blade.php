@@ -18,76 +18,56 @@
     	<div class="wrap">
 			<div class="main-layout">
 				<div class="col-1">
-					<article class="top">
-						<div class="thumb">
-							<img src="{{ asset('/movieimages/backgrounds/std/' . $movies[5]->slug . '.jpg') }}" alt="">
-						</div>
-						<div class="info">
-							<h3 class="h3">{{ $movies[5]->title }}</h3>
-							<p>{{ $movies[5]->review }}</p>
-						</div>
-					</article>
-					<article class="top">
-						<div class="thumb">
-							<img src="{{ asset('/movieimages/backgrounds/std/' . $movies[6]->slug . '.jpg') }}" alt="">
-						</div>
-						<div class="info">
-							<h3 class="h3">{{ $movies[6]->title }}</h3>
-							<p>{{ $movies[6]->review }}</p>
-						</div>
-					</article>
-					<article class="top">
-						<div class="thumb">
-							<img src="{{ asset('/movieimages/backgrounds/std/' . $movies[7]->slug . '.jpg') }}" alt="">
-						</div>
-						<div class="info">
-							<h3 class="h3">{{ $movies[7]->title }}</h3>
-							<p>{{ $movies[7]->review }}</p>
-						</div>
-					</article>
+					@foreach ($relatedMovies as $movie)
+						<article class="relevant-movie">
+							<div class="thumb">
+								<img src="{{ asset('/movieimages/backgrounds/std/' . $movie->slug . '.jpg') }}" alt="">
+								<div class="darker"></div>
+							</div>
+							<div class="info">
+								<h3 class="h3">{{ $movie->title }}</h3>
+								<div class="meta">
+									<div class="stars">{!! $movie->stars !!}</div>
+									{{ $movie->country }} · {{ $movie->duration }} ·
+									@foreach ($movie->genres as $genre)
+										{{ $loop->first ? '' : ', ' }}
+										<span>{{ $genre->name }}</span>
+									@endforeach
+								</div>
+								<p>{{ $movie->excerpt200 }}</p>
+								<div class="task">
+									<span>Disney Channel</span><time>hoy a las 23:45h</time>
+								</div>
+							</div>
+						</article>
+					@endforeach
 				</div>
 				<div class="col-2">
-					<article class="feature">
-						<div class="thumb">
-							<img src="{{ asset('/movieimages/backgrounds/std/' . $movies[0]->slug . '.jpg') }}" alt="">
-						</div>
-						<div class="info">
-							<h3 class="h2">{{ $movies[0]->title }}</h3>
-							<p>{{ $movies[0]->review }}</p>
-						</div>
-					</article>
-					<article class="item">
-						<div class="thumb">
-							<img src="{{ asset('/movieimages/backgrounds/std/' . $movies[1]->slug . '.jpg') }}" alt="">
-						</div>
-						<div class="info">
-							<h3>{{ $movies[1]->title }}</h3>
-						</div>
-					</article>
-					<article class="item">
-						<div class="thumb">
-							<img src="{{ asset('/movieimages/backgrounds/std/' . $movies[2]->slug . '.jpg') }}" alt="">
-						</div>
-						<div class="info">
-							<h3>{{ $movies[2]->title }}</h3>
-						</div>
-					</article>
-					<article class="item">
-						<div class="thumb">
-							<img src="{{ asset('/movieimages/backgrounds/std/' . $movies[3]->slug . '.jpg') }}" alt="">
-						</div>
-						<div class="info">
-							<h3>{{ $movies[3]->title }}</h3>
-						</div>
-					</article>
-					<article class="item">
-						<div class="thumb">
-							<img src="{{ asset('/movieimages/backgrounds/std/' . $movies[4]->slug . '.jpg') }}" alt="">
-						</div>
-						<div class="info">
-							<h3>{{ $movies[4]->title }}</h3>
-						</div>
-					</article>
+					@foreach ($movies as $movie)
+						<article class="{{ $loop->first ? 'featured-movie' : 'movie' }}">
+							<div class="thumb">
+								<img src="{{ asset('/movieimages/backgrounds/std/' . $movie->slug . '.jpg') }}" alt="">
+								<div class="darker"></div>
+								
+							</div>
+							<div class="info">
+								<h3 class="{{ $loop->first ? 'h2' : 'h4' }}">{{ $movie->title }}</h3>
+								<div class="meta">
+									<div class="stars">{!! $movie->stars !!}</div>
+									{{ $movie->country }} · {{ $movie->duration }} ·
+									@foreach ($movie->genres as $genre)
+										{{ $loop->first ? '' : ', ' }}
+										<span>{{ $genre->name }}</span>
+									@endforeach
+								</div>
+								{!! $loop->first ? '<p>' . $movie->excerpt400 . '<p>' : '' !!}</p>
+								<div class="task">
+									<span>Disney Channel</span><time>hoy a las 23:45h</time>
+								</div>
+							</div>
+						</article>
+					@endforeach
+
 				</div>
 
 				<div class="col-3">

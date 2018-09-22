@@ -19,7 +19,8 @@ class MovieController extends Controller
     public function tv()
     {
         $movies = $this->movieRepository->getMovies();
-    	return view('tv', compact('movies'));
+        $relatedMovies = $movies->splice(5);
+    	return view('tv', compact('movies', 'relatedMovies'));
     }
 
     public function netflix()

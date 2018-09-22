@@ -1,11 +1,14 @@
 /node_modules
 /public/hot
 /public/storage
+/public/newmovieimages
+/public/movieimages.rar
 /storage/*.key
 /vendor
 /.idea
 /.vscode
 /.vagrant
+/public/movieimages
 Homestead.json
 Homestead.yaml
 npm-debug.log

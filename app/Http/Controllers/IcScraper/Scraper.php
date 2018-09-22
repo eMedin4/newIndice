@@ -12,5 +12,6 @@ class Scraper extends Controller
     {
         $movies = Movie::all();
         return view('icScraper.index', compact('movies'));
+        
     }
 }

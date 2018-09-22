@@ -12,7 +12,9 @@ class MovieRepository {
 
     public function getMovies()
     {
-        return Movie::where('check_background', 1)->orderBy('fa_rat')->take(20)->get();
+        return Movie::where('check_background', 1)->orderBy('fa_count')->take(20)->get();
     }
+
+
 
 }

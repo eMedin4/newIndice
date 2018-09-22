@@ -21,7 +21,44 @@ html {
 }
 
 img {
-	width: 100%;
+  width: 100%;
+  display: block;
+}
+
+/* 
+
+Icomoon
+
+ */
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot');
+  src:  url('../fonts/icomoon.eot') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf') format('truetype'),
+    url('../fonts/icomoon.woff') format('woff'),
+    url('../fonts/icomoon.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-star-full:before {
+  content: "\e9d9";
 }
 
 
@@ -79,7 +116,7 @@ Modules
 .col-1,
 .col-2,
 .col-3 {
-  padding: 10px;
+  padding: 15px;
 }
 
 .col-1 {
@@ -94,26 +131,27 @@ Modules
   flex-basis: 20%;
 }
 
-.feature {
-  padding-bottom: 20px;
+.featured-movie {
+  padding-bottom: 30px;
 }
 
-.item {
+.movie {
   display: flex;
-  padding-bottom: 10px;
+  align-items: center;
+  padding-bottom: 30px;
 }
 
-.top {
-  padding-bottom: 15px;
+.relevant-movie {
+  padding-bottom: 25px;
 }
 
-.item .thumb {
-  flex-basis: 40%;
+.movie .thumb {
+  flex-basis: 30%;
 }
 
-.item .info {
-  flex-basis: 60%;
-  padding-left: 10px;
+.movie .info {
+  flex-basis: 70%;
+  padding-left: 20px;
 }
 
 .box-test {
@@ -121,6 +159,38 @@ Modules
   height: 200px;
   background-color: darkgray;
 }
+
+.stars {
+  display: inline-block;
+  font-size: 13px;
+  position: relative;
+  top: 1px;
+  margin-right: 3px;
+}
+
+.featured-movie .stars > span {
+  font-size: 15px;
+  margin-right: 5px;
+}
+
+.relevant-movie .stars > span {
+  font-size: 14px;
+  margin-right: 4px;
+}
+
+.stars > span {
+  margin-right: 2px;
+}
+
+.star-5-color { color: #00ecb8; }
+.star-4-color { color: #6df100; }
+.star-4-nocolor { color: #def9c9; }
+.star-3-color { color: #ffbe00; }
+.star-3-nocolor { color: #f9f1db; }
+.star-2-color { color: #ff5400; }
+.star-2-nocolor { color: #ffe2d4; }
+.star-1-color { color: #ff0045; }
+.star-1-nocolor { color: #fde3ea; }
 
 
   /* 
@@ -132,15 +202,69 @@ Others
 
 
  .h2 {
-    font-size: 50px;
-    font-weight: 900;
-    line-height: 60px;
-    letter-spacing: -.5px;
+  font-size: 50px;
+  font-weight: 900;
+  line-height: 54px;
+  letter-spacing: -1px;
+  padding: 10px 0 6px;
  }
 
  .h3 {
-    font-size: 30px;
-    font-weight: 900;
-    line-height: 40px;
-    letter-spacing: -.5px;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 34px;
+  letter-spacing: -.5px;
+  padding: 10px 0 6px;
  }
+
+ .h4 {
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 28px;
+  letter-spacing: -.3px;
+  padding-bottom: 6px;
+ }
+
+
+ .thumb {
+   position: relative;
+ }
+
+ .thumb .darker {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-image: radial-gradient( circle at bottom right, #0000008c, #00000000 );
+ }
+
+ .info p {
+   padding-bottom: 4px;
+ }
+
+ .task {
+  font-size: 14px;
+  padding-bottom: 10px;
+  font-weight: 600;
+  line-height: 25px;
+ }
+
+ .task span {
+  background: #000;
+  color: #fff;
+  padding: 0 8px;
+  display: inline-block;
+ }
+
+ .task time {
+    /* background: yellow; */
+    padding: 0 8px;
+    display: inline-block;
+ }
+
+.meta {
+  font-size: 13px;
+  line-height: 20px;
+  padding-bottom: 4px;
+}
