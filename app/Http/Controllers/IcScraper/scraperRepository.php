@@ -8,6 +8,7 @@ use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Param;
 use App\Models\User;
+use App\Models\MovistarTime;
 
 Use App\Http\Controllers\IcScraper\Images;
 use Carbon\Carbon;
@@ -193,15 +194,29 @@ class ScraperRepository {
     {
         $slug = str_slug($slug, '-');
         $count = Movie::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
-        /*if ($slug == 'walker') dd($count);*/
-        return $count ? "{$slug}-{$count}" : $slug;
+        if (empty($count)) return $slug; //si no hay slug retornamos el slug normal
+
+        //ya hay algún slug
+        $check = $this->checkSlug($slug, $count);
+        if (empty($check)) return "{$slug}-{$count}"; //verificamos nuestro slug y si no existe lo retornamos
+
+        //si nuestro nuevo slug ya existe vamos a ir probando nuevos
+        for ($i=1; $i < 10; $i++) { 
+            $check = $this->checkSlug($slug, $i);
+            if (empty($check)) return "{$slug}-{$i}";
+        }
+    }
+
+    public function checkSlug($slug, $count)
+    {
+        return Movie::where('slug', "{$slug}-{$count}")->count();
     }
 
     //ACTUALIZA TODOS LOS GENEROS
     public function updateAllGenres($apiGenres)
     {
         foreach($apiGenres as $genre) {
-            Genre::firstOrCreate($genre);
+            Genre::firstOrCreate(['id' => $genre['id']], ['name' => $genre['name']]);
         }
     }
 
@@ -225,39 +240,46 @@ class ScraperRepository {
         return Param::where('name', $name)->value($column);
     }
 
-    public function checkUpdated($id, $days)
+    public function checkIfExist($id)
     {
-        $movie = Movie::where('fa_id', $id)->where('updated_at', '<', Carbon::now()->subDays($days))->first();
-        //false = LA PELICULA YA EXISTE Y ES VALIDA. true = NO EXISTE O NO ES VÁLIDA Y HAY QUE AÑADIRLA
-        if ($movie) return false;
-        return true;
+        $movie = Movie::where('fa_id', $id)->first();
+        if ($movie) return true;
+        return false;
     }
 
-    /* public function resetMovistar()
+    public function update($card)
     {
-        if (MovistarSchedule::where('time', '<', Carbon::now()->subHour())->count()) {
-            MovistarSchedule::where('time', '<', Carbon::now()->subHour())->delete();
-        }
-    } */
+        $movie = Movie::where('fa_id', $card['id'])->first();
+        $movie->fa_rat = $card['rat'];
+        $movie->fa_count = $card['count'];
+        $movie->save();
+    }
 
-    /* public function searchByTitle($title)
+    public function resetMovistar()
+    {
+        if (MovistarTime::where('time', '<', Carbon::now()->subHour())->count()) {
+            MovistarTime::where('time', '<', Carbon::now()->subHour())->delete();
+        }
+    }
+
+    public function searchByTitle($title)
     {
         //BUSCAMOS POR TITULO EXACTO
         $movie = Movie::where('title', $title)->get();
-        if ($movie->count() == 1) return $movie->first();
+        if ($movie->count() == 1) return [$movie->first(), 'Por título exacto'];
 
         //BUSCAMOS POR TITULO EXACTO SIN PARÉNTESIS
         if (strpos($title, '(') !== FALSE) { 
             $title = trim(preg_replace("/\([^)]+\)/","",$title));
             $movie = Movie::where('title', $title)->get();
-            if ($movie->count() == 1) return $movie->first();
+            if ($movie->count() == 1) return [$movie->first(), 'Por título exacto y quitando paréntesis'];
         }
 
         //SI NO SE ENCUENTRA DEVOLVEMOS NULL
         return NULL;
-    } */
+    }
 
-    /* public function searchByDetails($movistarTitle, $movistarOriginal, $movistarYear)
+    public function searchByDetails($movistarTitle, $movistarOriginal, $movistarYear)
     {
         $cycle = [$movistarYear - 1, $movistarYear + 1];
 
@@ -265,7 +287,7 @@ class ScraperRepository {
         $movie = Movie::where('title', 'like', '%' . $movistarTitle . '%')
             ->whereBetween('year', $cycle)
             ->get();
-        if ($movie->count() == 1) return $movie->first();
+        if ($movie->count() == 1) return [$movie->first(), 'Por like y año +-1.'];
 
         //SI HAY PARÉNTESIS LOS QUITAMOS Y VOLVEMOS A BUSCAR
         if (strpos($movistarTitle, '(') !== FALSE) { 
@@ -273,48 +295,47 @@ class ScraperRepository {
             $movie = Movie::where('title', 'like', '%' . $movistarTitleNoBrackets . '%')
                 ->whereBetween('year', $cycle)
                 ->get();
-            if ($movie->count() == 1) return $movie->first();
+            if ($movie->count() == 1) return [$movie->first(), 'Por like, año +-1 y quitando parentesis'];
         }
 
         //SI NO BUSCAMOS POR EXACTO
         $movie = Movie::where('title', $movistarTitle)
             ->whereBetween('year', $cycle)
             ->get();
-        if ($movie->count() == 1) return $movie->first();
+        if ($movie->count() == 1) return [$movie->first(), 'Por título exacto y año +-1'];
 
         if($movistarOriginal && $movistarOriginal != $movistarTitle) {
             //SI NO BUSCAMOS POR ORIGINAL CON LIKE
             $movie = Movie::where('original_title', 'like', '%' . $movistarOriginal . '%')
                 ->whereBetween('year', $cycle)
                 ->get();
-            if ($movie->count() == 1) return $movie->first();
+            if ($movie->count() == 1) return [$movie->first(), 'Por like con título original y año +-1'];
 
             //SI NO BUSCAMOS POR ORIGINAL EXACTO
             $movie = Movie::where('original_title', $movistarOriginal)
                 ->whereBetween('year', $cycle)
                 ->get();
-            if ($movie->count() == 1) return $movie->first();
+            if ($movie->count() == 1) return [$movie->first(), 'Por titulo original exacto y año +-1'];
         }
 
         //SI NO SE ENCUENTRA DEVOLVEMOS NULL
         return NULL;
 
-    } */
+    }
 
 
-    /* public function setMovie($movie, $datetime, $channelCode, $channel)
+    public function setMovie($movie, $datetime, $channelCode, $channel)
     {
-        $match = MovistarSchedule::where([['movie_id', '=', $movie->id],['time', '=', $datetime]])->first();
+        $match = MovistarTime::where([['movie_id', '=', 36123],['time', '=', $datetime]])->first();
         if ($match) return;
-
-        MovistarSchedule::insert(
+        MovistarTime::insert(
             ['time' => $datetime, 'channel' => $channel, 'channel_code' => $channelCode, 'movie_id' => $movie->id]
         );
-    } */
+    }
 
     /* public function getMovistarValidDate($date)
     {
-        $match = MovistarSchedule::whereDate('time', $date)->count();
+        $match = MovistarTime::whereDate('time', $date)->count();
         dd($match);
         if ($match > 50) return false;
         return true;

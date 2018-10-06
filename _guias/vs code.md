@@ -37,4 +37,12 @@ Seleccionar conexión FTP
 Edición > Opciones > SFTP > Buscar clave privada 
 Conexion con ip del servidor y cambiar modo de acceso a Normal y poner usuario de forge
 
-
+Filtro
+Teletexto
+Tele+
+Telely.es
+Teletendencias.com
+Teletopics.es
+lomejordelatv.com
+contenidos
+espectador

@@ -24,7 +24,8 @@ class MovieScraper extends Controller
 
     public function FilmAffinityByLetter()
     {
-        $url = "https://www.filmaffinity.com/es/allfilms_X_1.html";
+		//zyxwabcdef
+        $url = "https://www.filmaffinity.com/es/allfilms_F_1.html";
         $client = new Client();
         $crawler = $client->request('GET', $url);
 
@@ -34,7 +35,7 @@ class MovieScraper extends Controller
         
         ob_start(); //iniciamos el output buffering https://stackoverflow.com/questions/5415665/show-results-while-script-is-still-executing
 
-        for ($i=1; $i<=6; $i++) {
+        for ($i=1; $i<=216; $i++) {
 
 			
 			echo 'scrapeamos pagina: ' . $crawler->getUri() . '<br>';
@@ -45,14 +46,20 @@ class MovieScraper extends Controller
 				//SCRAPEAMOS MOVIE CARD
 				$card = $this->cardScrap($element);
 
-				//SI YA EXISTE SALIMOS
-				if (!$this->scraperRepository->checkUpdated($card['id'], $days=60)) return;
-
 				//SI TIENE 10 O MENOS VOTOS SALIMOS
-				if ($card['countScore'] < 10) return;
-
+				if ($card['count'] < 10) return;
+				
 				//SI ES UNA SERIE O UN CORTO SALIMOS
 				if (preg_match('(\(Serie de TV\)|\(C\))', $card['title'])) return;
+
+				//SI ESTÁ EN NUESTRA LISTA DE UNAVAILABLE SALIMOS
+				if (in_array($card['id'], config('movies.unavailable'))) return;
+				
+				//SI YA EXISTE EN NUESTRA DB
+				if ($this->scraperRepository->checkIfExist($card['id'])) {
+					$this->scraperRepository->update($card);
+					return;
+				}
 
 				//CLICK Y ENTRAMOS
 				$crawler = $client->click($card['href']->link());
@@ -95,8 +102,8 @@ class MovieScraper extends Controller
 		$result['href']  = $element->filter('.movie-card .mc-title a'); 
 		$result['id'] = $this->faId($result['href']->attr('href'));
 		$result['title'] = $element->filter('.movie-card .mc-title a')->text(); 
-		$result['score'] = $this->score($element->filter('.avgrat-box')->text());
-		$result['countScore'] = $this->integer($this->getElementIfExist($element, '.ratcount-box', 0));
+		$result['rat'] = $this->score($element->filter('.avgrat-box')->text());
+		$result['count'] = $this->integer($this->getElementIfExist($element, '.ratcount-box', 0));
 		return $result;
     }
     
@@ -141,8 +148,9 @@ class MovieScraper extends Controller
 		//Construimos array con los datos de la table(no tienen ids)
         $table = $crawler->filter('.movie-info dt')->each(function($element) {
             return [$element->text() => $element->nextAll()->text()];
-        });
-        //Devuelve un array de arrays, lo convertimos a array normal
+		});
+		
+		//Devuelve un array de arrays, lo convertimos a array normal
         foreach ($table as $key => $value) { 
             $table2[key($value)] = current($value);
         }

@@ -7,6 +7,10 @@
 */
 return [
 
+    /* 'channels'  => [ 
+        'CPCOLE' => 'Movistar Drama',
+    ], */
+
     'channels'  => [ 
         'TVE' => 'La 1',
         'LA2' => 'La 2',
@@ -15,28 +19,29 @@ return [
         'A3' => 'Antena 3',
         'SEXTA' => 'La Sexta',
         'MV3' => 'Canal #0',
+        'FOXGE' => 'Fox',
+        'AXN' => 'AXN',
+        'TNT' => 'TNT',
+        'PCM' => 'Comdey Central',
+        'CL13' => 'Calle 13',
+        'COSMO' => 'Cosmo',
+        'AMC' => 'AMC',
+        'FOXCR' => 'Fox Life',
+        'SET' => 'AXN White',
+        'SCI-FI' => 'SyFy',
+        'NEOX' => 'Neox',
         'MV1' => 'Movistar Estrenos',
-        'CPCOLE' => 'Movistar De Cine',
+        'CPXTRA' => 'Movistar CineDoc&Roll',
+        'MDISNE' => 'Movistar Disney',
         'CPACCI' => 'Movistar Acción',
         'CPCOME' => 'Movistar Comedia ',
-        'CPXTRA' => 'Movistar Xtra',
-        'AMC' => 'AMC',
-        'AXN' => 'AXN',
-        'SET' => 'AXN White',
-        'COSMO' => 'Cosmo',
-        'CL13' => 'Calle 13',
-        'PCM' => 'Comdey Central',
-        'DCH' => 'Disney Channel',
-        'DIVINI' => 'Divinity',
-        'FOXGE' => 'Fox',
-        'FOXCR' => 'Fox Life',
-        'HOLLYW' => 'Hollywood',
-        'NEOX' => 'Neox',
-        'NOVA' => 'Nova',
-        'PARCH' => 'Paramount Channel',
-        'SCI-FI' => 'SyFy',
+        'CPCOLE' => 'Movistar Drama',
+        'DCESP' => 'Movistar Cine Ñ',
         'TCM' => 'TCM',
-        'TNT' => 'TNT'
+        'HOLLYW' => 'Hollywood',
+        'SUNDAN' => 'Sundance TV',
+        'DARK' => 'Dark',
+        'PARCH' => 'Paramount Channel',
     ],
 
     'moviesTvBan' => [
@@ -482,6 +487,10 @@ return [
         '381884',
         '937864',
         '364039',
+        '196751',
+        '365277',
+        '968901',
+        '522462',
     ],
 
 ];

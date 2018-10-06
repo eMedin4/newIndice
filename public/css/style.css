@@ -61,6 +61,14 @@ Icomoon
   content: "\e9d9";
 }
 
+.icon-clock:before {
+  content: "\e94e";
+}
+
+.icon-tv:before {
+  content: "\e95b";
+}
+
 
 /* 
 
@@ -78,26 +86,88 @@ body {
   font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
-    color: #000;
-    font-size: 16px;
-    line-height: 22px;
-    background: #fff;
+    color: #fff;
+    font-size: 15px;
+    line-height: 20px;
+    background: #191b22;
     letter-spacing: -0.3px;
-}
-
-.top-bar {
-	height: 50px;
 }
 
 .main {
 
 }
 
-.wrap {
+.main-wrap {
 	max-width: 1320px;
     margin: 0 auto;
 }
 
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+
+
+/* 
+
+  HEADER
+
+*/
+
+.header {
+  padding: 24px 0 20px;
+}
+
+.title {
+  margin: 0 41px 0 10px;
+}
+
+.title .icon-tv {
+  font-size: 32px;
+  color: #3c99dc;
+  transform: rotate(10deg);
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.title p {
+  display: inline-block;
+  text-align: center;
+  line-height: 34px;
+  font-weight: 900;
+  color: #ffffff;
+  font-size: 30px;
+  letter-spacing: 1px;
+}
+
+.section-links {
+  display: flex;
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  margin: 8px 0 0 5px;
+  color: #d9e1e8;
+}
+
+.section-links a {
+  text-align: center;
+  margin-left: 20px;
+  padding-left: 20px;
+  color: #d9e1e8;
+}
+
+.section-links a:first-child {
+  margin-left: 0;
+  border-left: none;
+  padding-left: 0;
+}
+
+.header-wrap {
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+}
 
 
 
@@ -112,86 +182,310 @@ Modules
   display: flex;
 }
 
+.movie-layout {
+  display: flex;
+}
 
 .col-1,
 .col-2,
 .col-3 {
-  padding: 15px;
+  padding: 10px;
 }
 
-.col-1 {
+.main-layout .col-1 {
   flex-basis: 30%;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  align-self: flex-start;
 }
 
-.col-2 {
+.main-layout .col-2 {
   flex-basis: 50%;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  align-self: flex-start;
 }
 
-.col-3 {
+.main-layout .col-3 {
   flex-basis: 20%;
 }
 
-.featured-movie {
-  padding-bottom: 30px;
-}
-
-.movie {
-  display: flex;
-  align-items: center;
-  padding-bottom: 30px;
-}
-
-.relevant-movie {
-  padding-bottom: 25px;
-}
-
-.movie .thumb {
+.movie-layout .col-1 {
   flex-basis: 30%;
 }
 
-.movie .info {
+.movie-layout .col-2 {
   flex-basis: 70%;
-  padding-left: 20px;
 }
 
-.box-test {
-  width: 200px;
-  height: 200px;
-  background-color: darkgray;
+.record {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.record-1 {
+
+}
+
+.section-2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 -10px;
+}
+
+.record-2 {
+  flex-basis: 50%;
+  padding: 0 10px;
+}
+
+.record-2 .popularity-tag {
+  display: none;
+}
+
+.record-3 {
+
+}
+
+.record-2 .thumb {
+
+}
+
+.record-2 .info {
+  flex-basis: 70%;
+}
+
+.record > .wrap {
+  background: #282c37;
+  border-radius: 4px;
+}
+
+.record img {
+  border-radius: 4px 4px 0 0;
+}
+
+.single-movie p {
+  font-size: 17px;
+  line-height: 24px;
+}
+
+/* 
+
+  META MOVIE
+
+ */
+
+.meta {
+  color: #d9e1e8;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 0 15px;
+}
+
+.single-movie .meta {
+  font-size: 17px;
+  padding-bottom: 8px;
+  line-height: 22px;
+}
+
+.meta li {
+  display: inline-block;
 }
 
 .stars {
-  display: inline-block;
-  font-size: 13px;
+  font-size: 16px;
+  margin: 0 10px;
   position: relative;
   top: 1px;
-  margin-right: 3px;
-}
-
-.featured-movie .stars > span {
-  font-size: 15px;
-  margin-right: 5px;
-}
-
-.relevant-movie .stars > span {
-  font-size: 14px;
-  margin-right: 4px;
 }
 
 .stars > span {
+
+}
+
+.single-movie .stars > span {
+  font-size: 17px;
   margin-right: 2px;
 }
 
-.star-5-color { color: #00ecb8; }
-.star-4-color { color: #6df100; }
-.star-4-nocolor { color: #def9c9; }
-.star-3-color { color: #ffbe00; }
-.star-3-nocolor { color: #f9f1db; }
-.star-2-color { color: #ff5400; }
-.star-2-nocolor { color: #ffe2d4; }
-.star-1-color { color: #ff0045; }
-.star-1-nocolor { color: #fde3ea; }
+.star-5-color   { color: #FF015B; }
+.star-4-color   { color: #D62989; }
+.star-3-color   { color: #9B479E; }
+.star-2-color   { color: #5D5398; }
+.star-1-color   { color: #32527C; }
+.star-4-nocolor,
+.star-3-nocolor,
+.star-2-nocolor,
+.star-1-nocolor { 
+  color: #3d4458; 
+}
 
+.popularity-tag {
+  font-size: 14px;
+  color: #687590;
+}
+
+.popularity {
+  position: relative;
+  top: -1px;
+  background: #3d4458;
+  width: 80px;
+  height: 8px;
+  margin-left: 4px;
+  border-radius: 4px;
+}
+
+.popularity-inner {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  border-radius: 4px 0 0 4px;
+}
+
+.popularity-5 .popularity-inner { background: #FF015B; right: 0%; background: repeating-linear-gradient(135deg, #ff015b, #ff015b 2px, #d62989, #d62989 8px); border-radius: 4px;}
+.popularity-4 .popularity-inner { background: #D62989; right: 20%; background: repeating-linear-gradient(135deg, #ff015b, #ff015b 2px, #d62989, #d62989 8px);}
+.popularity-3 .popularity-inner { background: #9B479E; right: 40%; background: repeating-linear-gradient(135deg, #ff015b, #ff015b 2px, #d62989, #d62989 8px);}
+.popularity-2 .popularity-inner { background: #5D5398; right: 60%; background: repeating-linear-gradient(135deg, #ff015b, #ff015b 2px, #d62989, #d62989 8px);}
+.popularity-1 .popularity-inner { background: #32527C; right: 80%; background: repeating-linear-gradient(135deg, #ff015b, #ff015b 2px, #d62989, #d62989 8px);}
+.popularity-0 .popularity-inner { background: #2F4858; right: 90%; background: repeating-linear-gradient(135deg, #ff015b, #ff015b 2px, #d62989, #d62989 8px);}
+
+.country {
+  height: 13px;
+  background-image: url(../images/flags.png);
+  background-repeat: no-repeat;
+  position: relative;
+  top: 1px;
+  border-radius: 3px;
+
+}
+
+.country-andorra { background-position: -3px -3px; width: 19px; margin: 0 7px 0 0; }
+.country-emiratos-arabes { background-position: -3px -20px; width: 19px; margin: 0 7px 0 0; }
+.country-armenia { background-position: -3px -53px; width: 19px; margin: 0 7px 0 0; }
+.country-argentina { background-position: -3px -70px; width: 19px; margin: 0 7px 0 0; }
+.country-austria { background-position: -3px -87px; width: 19px; margin: 0 7px 0 0; }
+.country-australia { background-position: -3px -104px; width: 19px; margin: 0 7px 0 0; }
+.country-belgica { background-position: -3px -121px; width: 19px; margin: 0 7px 0 0; }
+.country-burkina-faso { background-position: -3px -138px; width: 19px; margin: 0 7px 0 0; }
+.country-bulgaria { background-position: -3px -154px; width: 19px; margin: 0 7px 0 0; }
+.country-bolivia { background-position: -3px -171px; width: 19px; margin: 0 7px 0 0; }
+.country-brasil { background-position: -25px -3px; width: 19px; margin: 0 7px 0 0; }
+.country-canada { background-position: -25px -20px; width: 19px; margin: 0 7px 0 0; }
+.country-republica-del-congo { background-position: -25px -37px; width: 19px; margin: 0 7px 0 0; }
+.country-suiza { background-position: -25px -70px; width: 19px; margin: 0 7px 0 0; }
+.country-chile { background-position: -25px -87px; width: 19px; margin: 0 7px 0 0; }
+.country-china { background-position: -25px -121px; width: 19px; margin: 0 7px 0 0; }
+.country-colombia { background-position: -25px -138px; width: 19px; margin: 0 7px 0 0; }
+.country-republica-checa { background-position: -25px -154px; width: 19px; margin: 0 7px 0 0; }
+.country-alemania { background-position: -25px -171px; width: 19px; margin: 0 7px 0 0; }
+.country-dinamarca { background-position: -47px -20px; width: 19px; margin: 0 7px 0 0; }
+.country-argelia { background-position: -47px -37px; width: 19px; margin: 0 7px 0 0; }
+.country-estonia { background-position: -47px -53px; width: 19px; margin: 0 7px 0 0; }
+.country-egipto { background-position: -47px -70px; width: 19px; margin: 0 7px 0 0; }
+.country-espana { background-position: -47px -87px; width: 19px; margin: 0 7px 0 0; }
+.country-finlandia { background-position: -47px -104px; width: 19px; margin: 0 7px 0 0; }
+.country-francia { background-position: -47px -121px; width: 19px; margin: 0 7px 0 0; }
+.country-reino-unido { background-position: -47px -154px; width: 19px; margin: 0 7px 0 0; }
+.country-guatemala { background-position: -69px -3px; width: 19px; margin: 0 7px 0 0; }
+.country-honduras { background-position: -69px -20px; width: 19px; margin: 0 7px 0 0; }
+.country-hungria { background-position: -69px -53px; width: 19px; margin: 0 7px 0 0; }
+.country-indonesia { background-position: -69px -70px; width: 19px; margin: 0 7px 0 0; }
+.country-irlanda { background-position: -69px -87px; width: 19px; margin: 0 7px 0 0; }
+.country-israel { background-position: -69px -104px; width: 19px; margin: 0 7px 0 0; }
+.country-india { background-position: -69px -121px; width: 19px; margin: 0 7px 0 0; }
+.country-irak { background-position: -69px -138px; width: 19px; margin: 0 7px 0 0; }
+.country-iran { background-position: -69px -154px; width: 19px; margin: 0 7px 0 0; }
+.country-italia { background-position: -69px -171px; width: 19px; margin: 0 7px 0 0; }
+.country-jamaica { background-position: -91px -3px; width: 19px; margin: 0 7px 0 0; }
+.country-jordania { background-position: -91px -20px; width: 19px; margin: 0 7px 0 0; }
+.country-japon { background-position: -91px -37px; width: 19px; margin: 0 7px 0 0; }
+.country-kirguistan { background-position: -91px -53px; width: 19px; margin: 0 7px 0 0; }
+.country-corea-del-norte { background-position: -91px -87px; width: 19px; margin: 0 7px 0 0; }
+.country-corea-del-sur { background-position: -91px -104px; width: 19px; margin: 0 7px 0 0; }
+.country-kazajstan { background-position: -91px -138px; width: 19px; margin: 0 7px 0 0; }
+.country-libano { background-position: -91px -171px; width: 19px; margin: 0 7px 0 0; }
+.country-luxemburgo { background-position: -114px -37px; width: 19px; margin: 0 7px 0 0; }
+.country-letonia { background-position: -114px -53px; width: 19px; margin: 0 7px 0 0; }
+.country-macedonia { background-position: -114px -87px; width: 19px; margin: 0 7px 0 0; }
+.country-mali { background-position: -114px -104px; width: 19px; margin: 0 7px 0 0; }
+.country-mexico { background-position: -114px -154px; width: 19px; margin: 0 7px 0 0; }
+.country-nigeria { background-position: -136px -20px; width: 19px; margin: 0 7px 0 0; }
+.country-nicaragua { background-position: -136px -37px; width: 19px; margin: 0 7px 0 0; }
+.country-paises-bajos-holanda { background-position: -136px -53px; width: 19px; margin: 0 7px 0 0; }
+.country-noruega { background-position: -136px -70px; width: 19px; margin: 0 7px 0 0; }
+.country-panama { background-position: -136px -104px; width: 19px; margin: 0 7px 0 0; }
+.country-peru { background-position: -136px -121px; width: 19px; margin: 0 7px 0 0; }
+.country-paquistan { background-position: -136px -154px; width: 19px; margin: 0 7px 0 0; }
+.country-polonia { background-position: -136px -171px; width: 19px; margin: 0 7px 0 0; }
+.country-portugal { background-position: -158px -3px; width: 19px; margin: 0 7px 0 0; }
+.country-paraguay { background-position: -158px -20px; width: 19px; margin: 0 7px 0 0; }
+.country-rumania { background-position: -158px -53px; width: 19px; margin: 0 7px 0 0; }
+.country-rusia { background-position: -158px -70px; width: 19px; margin: 0 7px 0 0; }
+.country-ruanda { background-position: -158px -87px; width: 19px; margin: 0 7px 0 0; }
+.country-arabia-saudi { background-position: -158px -104px; width: 19px; margin: 0 7px 0 0; }
+.country-suecia { background-position: -158px -121px; width: 19px; margin: 0 7px 0 0; }
+.country-singapur { background-position: -158px -138px; width: 19px; margin: 0 7px 0 0; }
+.country-senegal { background-position: -158px -171px; width: 19px; margin: 0 7px 0 0; }
+.country-el-salvador { background-position: -180px -20px; width: 19px; margin: 0 7px 0 0; }
+.country-chad { background-position: -180px -37px; width: 19px; margin: 0 7px 0 0; }
+.country-turquia { background-position: -180px -87px; width: 19px; margin: 0 7px 0 0; }
+.country-tanzania { background-position: -180px -104px; width: 19px; margin: 0 7px 0 0; }
+.country-ucrania { background-position: -180px -121px; width: 19px; margin: 0 7px 0 0; }
+.country-estados-unidos { background-position: -180px -138px; width: 19px; margin: 0 7px 0 0; }
+.country-venezuela { background-position: -180px -154px; width: 19px; margin: 0 7px 0 0; }
+.country-vietnam { background-position: -180px -3px; width: 19px; margin: 0 7px 0 0; }
+.country-yemen { background-position: -202px -3px; width: 19px; margin: 0 7px 0 0; }
+
+.break {
+  display: inline-block;
+  width: 2px;
+  background: #000;
+  position: relative;
+  top: 2px;
+  height: 15px;
+  margin: 0 10px;
+}
+
+.ratings {
+  display: flex;
+  font-family: 'Roboto Condensed', sans-serif;
+  margin: 20px 0;
+}
+
+.ratings .source {
+  font-weight: 700;
+  padding-bottom: 5px;
+}
+
+.rating {
+  margin-right: 30px;
+}
+
+.rating .rat {
+  display: inline-block;
+  font-size: 22px;
+  letter-spacing: -1px;
+  margin-right: 5px;
+  position: relative;
+  top: 1px;
+  font-weight: 700;
+}
+
+.popularity-list li {
+  display: inline-block;
+}
+
+.popularity-list .popularity {
+  margin-left: 5px;
+}
+
+.popularity-list .count {
+  font-size: 13px;
+  margin-left: 4px;
+}
 
   /* 
 
@@ -199,28 +493,38 @@ Others
 
  */
 
-
+.h1 {
+  font-size: 60px;
+  font-weight: 900;
+  line-height: 66px;
+  letter-spacing: -2px;
+  padding: 10px 0 15px;
+  margin-left: -3px;
+}
 
  .h2 {
-  font-size: 50px;
+  font-size: 42px;
   font-weight: 900;
-  line-height: 54px;
+  line-height: 44px;
   letter-spacing: -1px;
   padding: 10px 0 6px;
+  margin-left: -2px;
  }
 
  .h3 {
-  font-size: 30px;
-  font-weight: 900;
-  line-height: 34px;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 30px;
   letter-spacing: -.5px;
-  padding: 10px 0 6px;
+  margin-left: -1px;
+  padding: 15px 15px 12px;
+  color: #d9e1e8;
  }
 
  .h4 {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 900;
-  line-height: 28px;
+  line-height: 22px;
   letter-spacing: -.3px;
   padding-bottom: 6px;
  }
@@ -239,32 +543,101 @@ Others
    background-image: radial-gradient( circle at bottom right, #0000008c, #00000000 );
  }
 
+ .info {
+
+ }
+
  .info p {
-   padding-bottom: 4px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 15px 10px;
+  color: #9baec8;
  }
 
- .task {
+ .program {
+  color: #d9e1e8;
+  font-weight: 500;
   font-size: 14px;
-  padding-bottom: 10px;
-  font-weight: 600;
-  line-height: 25px;
+  padding: 10px 15px;
+  border-radius: 0 0 4px 4px;
+  border-top: 1px solid #303643;
  }
 
- .task span {
-  background: #000;
-  color: #fff;
-  padding: 0 8px;
+ .program .channel {
+  display: inline-block;
+  padding-right: 12px;
+ }
+
+ .program time {
   display: inline-block;
  }
 
- .task time {
-    /* background: yellow; */
-    padding: 0 8px;
-    display: inline-block;
+ .program .icon-tv {
+  font-size: 16px;
+  padding-right: 4px;
  }
 
-.meta {
-  font-size: 13px;
-  line-height: 20px;
-  padding-bottom: 4px;
+ .program .icon-clock {
+  font-size: 16px;
+  position: relative;
+  top: 1px;
+  padding-right: 4px;
+ }
+
+ .channel.tve { color: #0645cc; }
+ .channel.la2 { color: #0c9daa; }
+ .channel.c4 { color: #d91c04; }
+ .channel.t5 { color: #00aadb; }
+ .channel.a3 { color: #000; }
+ .channel.sexta { color: #000; }
+ .channel.mv3 { color: #000; }
+ .channel.foxge { color: #000; }
+ .channel.axn { color: #000; }
+ .channel.tnt { color: #0090b0; }
+ .channel.pcm { color: #000; }
+ .channel.cl13 { color: #000; }
+ .channel.cosmo { color: #e41560; }
+ .channel.amc { color: #000; }
+ .channel.foxcr { color: #532062; }
+ .channel.set { color: #3d3d3d; }
+ .channel.sci-fi { color: #000; }
+ .channel.neox { color: #dbc63b; }
+ .channel.mv1 { color: #ff544a; }
+ .channel.cpxtra { color: #ff544a; }
+ .channel.mdisne { color: #ff544a; }
+ .channel.cpacci { color: #ff544a; }
+ .channel.cpcome { color: #ff544a; }
+ .channel.cpcole { color: #ff544a; }
+ .channel.dcesp { color: #ff544a; }
+ .channel.tcm { color: #004063; }
+ .channel.hollyw { color: #4ca7df; }
+ .channel.sundan { color: #131d1f; }
+ .channel.dark { color: #000; }
+ .channel.parch { color: #023e84; }
+
+
+.record-2 .excerpt {
+  display: none;
 }
+
+
+
+
+
+.develop-data {
+  font-size: 11px;
+  line-height: 11px;
+  border-collapse: collapse;
+  margin-top: 3px;
+  display: none;
+}
+
+.develop-data td {
+  padding-right: 5px;
+}
+
+.develop-data span {
+  font-weight: 700;
+}
+

@@ -1,8 +1,10 @@
 <?php
 
+Route::get('/temporal', 'TemporalRepository@temporal3');
+
 Route::get('/', 'MovieController@tv')->name('tv');
 Route::get('/netflix', ['as' => 'netflix', 'uses' => 'MovieController@netflix']);
-Route::get('/pelicula/{slug}', ['as' => 'movie', 'uses' => 'MovieController@show']);
+Route::get('/pelicula/{slug}', 'MovieController@show')->name('movie');
 
 
 /*  */
@@ -14,6 +16,7 @@ Route::group([
 ], function() {
     Route::get('/', 'Scraper@show')->name('icscraper.show');
     Route::get('/filmaffinitybyletter', 'MovieScraper@FilmAffinityByLetter')->name('icscraper.filmaffinitybyletter');
+    Route::get('/movistar', 'TimesScraper@Movistar')->name('icscraper.movistar');
 });
 
 /* 

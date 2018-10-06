@@ -37,8 +37,8 @@
                     <td>{{$movie->year}}</td>
                     <td>{{$movie->duration}}</td>
                     <td>{{$movie->country}}</td>
-                    <td>{{$movie->poster}}</td>
-                    <td>{{$movie->background}}</td>
+                    <td>{{$movie->check_poster}}</td>
+                    <td>{{$movie->check_background}}</td>
                     <td>{{$movie->avg}}</td>
                     <td>{{$movie->created_at}}</td>
                     <td>{{$movie->updated_at}}</td>
@@ -46,6 +46,8 @@
             @endforeach
         </tbody>
       </table>
+
+      {{ $movies->links() }}
 
     <h2>Introduce el id de Filmaffinity:</h2>
 	    <form method="GET" action="">

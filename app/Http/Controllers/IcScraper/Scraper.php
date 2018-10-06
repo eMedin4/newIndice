@@ -10,7 +10,7 @@ class Scraper extends Controller
 {
     public function show()
     {
-        $movies = Movie::all();
+        $movies = Movie::paginate(100);;
         return view('icScraper.index', compact('movies'));
         
     }
